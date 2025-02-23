@@ -10,7 +10,9 @@ export async function GET() {
   const stream = new ReadableStream({
     async start(controller) {
       try {
-        const { stdout, stderr } = await execAsync("speedtest-cli --json");
+        const { stdout, stderr } = await execAsync(
+          "speedtest-cli --secure --json",
+        );
 
         if (stderr) {
           throw new Error(stderr);

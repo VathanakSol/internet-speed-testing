@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 
 interface SpeedTestResult {
   download: number;
@@ -67,36 +67,53 @@ export default function SpeedTest() {
   };
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Speed Test Results</CardTitle>
+    <Card className="w-full min-h-[200px] max-w-[95%] mx-auto md:max-w-md bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-lg">
+      <CardHeader className="p-4 md:p-6">
+        <CardTitle className="text-2xl font-bold text-center">
+          Speed Test Results
+        </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-4 md:p-6">
         {!isLoading && !results && !error && (
-          <Button onClick={runSpeedTest} className="w-full">
+          <Button
+            onClick={runSpeedTest}
+            className="w-full bg-blue-400 hover:bg-blue-500 text-white text-base font-semibold py-3 rounded-lg transition-all duration-300"
+          >
             Start Speed Test
           </Button>
         )}
         {isLoading && (
-          <div className="space-y-2">
-            <Progress value={undefined} className="w-full" />
-            <p className="text-center">Testing in progress...</p>
+          <div className="flex flex-col items-center justify-center space-y-4 min-h-[120px]">
+            <Loader2 className="h-8 w-8 animate-spin text-blue-200" />
+            <p className="text-base text-blue-200">Testing in progress...</p>
           </div>
         )}
         {results && (
-          <div className="space-y-2">
-            <p>Download Speed: {results.download.toFixed(2)} Mbps</p>
-            <p>Upload Speed: {results.upload.toFixed(2)} Mbps</p>
-            <p>Ping: {results.ping.toFixed(0)} ms</p>
-            <Button onClick={runSpeedTest} className="w-full mt-4">
+          <div className="space-y-4">
+            <div className="bg-blue-600/30 p-4 rounded-lg">
+              <p className="text-lg mb-3">
+                Download Speed: {results.download.toFixed(2)} Mbps
+              </p>
+              <p className="text-lg mb-3">
+                Upload Speed: {results.upload.toFixed(2)} Mbps
+              </p>
+              <p className="text-lg">Ping: {results.ping.toFixed(0)} ms</p>
+            </div>
+            <Button
+              onClick={runSpeedTest}
+              className="w-full bg-blue-400 hover:bg-blue-500 text-white text-base font-semibold py-3 rounded-lg transition-all duration-300"
+            >
               Run Again
             </Button>
           </div>
         )}
         {error && (
-          <div className="space-y-2">
-            <p className="text-red-500">{error}</p>
-            <Button onClick={runSpeedTest} className="w-full mt-4">
+          <div className="space-y-4">
+            <p className="text-base text-red-300 text-center p-4">{error}</p>
+            <Button
+              onClick={runSpeedTest}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white text-base font-semibold py-3 rounded-lg transition-all duration-300"
+            >
               Try Again
             </Button>
           </div>
