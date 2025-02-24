@@ -2,10 +2,7 @@
 FROM node:18-alpine
 
 # Install Python and pip
-RUN apk add --no-cache python3 py3-pip
-
-# Install speedtest-cli with --break-system-packages
-RUN pip install --break-system-packages speedtest-cli
+RUN apk add --no-cache python3 py3-pip speedtest-cli
 
 # Set the working directory
 WORKDIR /app
